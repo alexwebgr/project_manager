@@ -4,5 +4,8 @@
 
 import { application } from "./application"
 
-import HelloController from "./hello_controller"
-application.register("hello", HelloController)
+import FormResetController from "./form_reset_controller"
+application.register("form-reset", FormResetController)
+
+import ProjectStatusController from "./project_status_controller"
+application.register("project-status", ProjectStatusController)

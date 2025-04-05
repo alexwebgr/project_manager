@@ -1,0 +1,21 @@
+<%= turbo_stream_from @project %>
+
+<h1 class="text-xl font-bold"><%= @project.name %></h1>
+
+<%= form_with url: project_change_status_path(@project), method: :post, data: { turbo_frame: "_top", controller: "project-status", action: "change->project-status#submit" } do |form| %>
+  <%= form.select :status, Project.statuses.map { |key, _| [key.humanize, key] }, { selected: @project.status },
+    { class: "bg-gray-50 border border-gray-300 text-gray-800 text-sm rounded-lg p-2" }
+  %>
+<% end %>
+
+<h2>Comments</h2>
+<div id="comments" class="mb-24">
+  <%= render partial: "comments/comment", collection: @project.comments %>
+</div>
+
+<footer class="fixed bottom-0 left-0 right-0 bg-white shadow-md">
+  <%= form_with model: [@project, Comment.new], data: { turbo_frame: "_top", controller: "form-reset", action: "turbo:submit-end->form-reset#reset" }, class: "flex" do |form| %>
+    <%= form.textarea :content, placeholder: "Write your comment here...", class: "w-full h-20 p-4 border-t border-gray-300 focus:outline-none focus:ring focus:ring-blue-500 resize-none" %>
+    <button type="submit" class="bg-blue-500 text-white px-4 py-2 h-full">Post</button>
+  <% end %>
+</footer>
