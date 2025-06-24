@@ -3,5 +3,5 @@ class Comment < ApplicationRecord
 
   validates :content, presence: true
 
-  broadcasts_to :project
+  broadcasts_to :project, inserts_by: :prepend
 end
